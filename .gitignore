@@ -1,0 +1,9 @@
+build/
+bin/
+lib/
+*.log
+*.swp
+*.user
+*~
+.idea/
+install_scripts/depends
