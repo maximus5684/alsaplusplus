@@ -17,6 +17,7 @@ set(HEADER_DIR ${AlsaPlusPlus_SOURCE_DIR}/include)
 set(HEADERS
   ${HEADER_DIR}/common.hpp;
   ${HEADER_DIR}/mixer.hpp;
+  ${HEADER_DIR}/pcm.hpp;
 )
 
 include_directories (
@@ -26,6 +27,7 @@ include_directories (
 add_library(
   ${PROJECT_NAME} SHARED
   src/mixer.cpp
+  src/pcm.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${AlsaPlusPlus_VERSION} SOVERSION ${AlsaPlusPlus_VERSION_MAJOR})

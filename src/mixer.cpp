@@ -1,8 +1,7 @@
 #include <mixer.hpp>
 
-namespace AlsaPlusPlus
+using namespace AlsaPlusPlus;
+
+Mixer::Mixer()
 {
-  class Mixer
-  {
-  };
 }
