@@ -11,8 +11,8 @@ extern "C"
 //C++
 #include <memory>
 #include <iostream>
-#include <stdexcept>
 #include <vector>
+#include <sstream>
 
 //ALSA
 extern "C"
@@ -24,5 +24,7 @@ extern "C"
 #include <alsa/output.h>
 #include <alsa/conf.h>
 }
+
+#include <error.hpp>
 
 #endif

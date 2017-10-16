@@ -16,6 +16,7 @@ set(HEADER_DIR ${AlsaPlusPlus_SOURCE_DIR}/include)
 
 set(HEADERS
   ${HEADER_DIR}/common.hpp;
+  ${HEADER_DIR}/error.hpp;
   ${HEADER_DIR}/mixer.hpp;
   ${HEADER_DIR}/pcm.hpp;
 )
@@ -26,6 +27,7 @@ include_directories (
 
 add_library(
   ${PROJECT_NAME} SHARED
+  src/error.cpp
   src/mixer.cpp
   src/pcm.cpp
 )
