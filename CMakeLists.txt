@@ -12,7 +12,7 @@ set(AlsaPlusPlus_VERSION_MINOR 1)
 set(AlsaPlusPlus_VERSION_PATCH 0)
 set(AlsaPlusPlus_VERSION ${AlsaPlusPlus_VERSION_MAJOR}.${AlsaPlusPlus_VERSION_MINOR}.${AlsaPlusPlus_VERSION_PATCH})
 
-set(HEADER_DIR ${AlsaPlusPlus_SOURCE_DIR}/include)
+set(HEADER_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(HEADERS
   ${HEADER_DIR}/common.hpp;
@@ -41,3 +41,15 @@ target_link_libraries(
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
 install(FILES ${HEADERS} DESTINATION include)
+
+link_directories(${CMAKE_SOURCE_DIR}/lib)
+
+add_executable(
+  wav_player
+  examples/wav_player.cpp
+)
+
+target_link_libraries(
+  wav_player
+  ${PROJECT_NAME}
+)

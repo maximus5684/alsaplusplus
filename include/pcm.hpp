@@ -51,7 +51,7 @@ namespace AlsaPlusPlus
   {
     public:
       PCMPlayer(std::string hw_device);
-      virtual ~PCMPlayer();
+
       template <typename SAMPLE_TYPE>
         int play_interleaved(const std::vector<SAMPLE_TYPE>& audio_samples);
       template <typename SAMPLE_TYPE>
@@ -63,13 +63,17 @@ namespace AlsaPlusPlus
   {
     public:
       PCMRecorder(std::string hw_device);
-      virtual ~PCMRecorder();
 
       template <typename SAMPLE_TYPE>
-        int record_interleaved(std::vector<SAMPLE_TYPE>& audio_samples);
+        int record_interleaved(const std::vector<SAMPLE_TYPE>& audio_samples);
       template <typename SAMPLE_TYPE>
-        int record_noninterleaved(std::vector<std::vector<SAMPLE_TYPE>>& audio_streams);
+        int record_noninterleaved(const std::vector<std::vector<SAMPLE_TYPE>>& audio_streams);
   };
+
+  //Definitions of templated functions
+  #include <pcm.tpp>
+
 } 
+
 
 #endif

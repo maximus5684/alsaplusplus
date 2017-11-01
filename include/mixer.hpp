@@ -12,7 +12,6 @@ namespace AlsaPlusPlus
   {
     public:
       Mixer();
-      virtual ~Mixer();
 
     private:
       snd_mixer_t* sound_mixer_handle;
