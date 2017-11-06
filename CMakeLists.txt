@@ -53,3 +53,13 @@ target_link_libraries(
   wav_player
   ${PROJECT_NAME}
 )
+
+add_executable(
+  set_volume
+  examples/set_volume.cpp
+)
+
+target_link_libraries(
+  set_volume
+  ${PROJECT_NAME}
+)

@@ -6,17 +6,6 @@
 
 namespace AlsaPlusPlus
 {
-  enum class AudioChannels :
-    int
-  {
-    MONO = 1,
-    STEREO = 2,
-    STEREO_PLUS_SUB = 3,
-    STEREO_SURROUND = 4,
-    FULL_SURROUND = 5,
-    FULL_SURROUND_PLUS_SUB = 6
-  };
-
   struct HwParams
   {
     snd_pcm_access_t access_type;

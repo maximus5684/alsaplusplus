@@ -6,6 +6,7 @@ extern "C"
 {
 #include <unistd.h>
 #include <cstdio>
+#include <cstring>
 }
 
 //C++
@@ -26,5 +27,19 @@ extern "C"
 }
 
 #include <error.hpp>
+
+namespace AlsaPlusPlus
+{
+  enum class AudioChannels :
+    int
+  {
+    MONO = 1,
+    STEREO = 2,
+    STEREO_PLUS_SUB = 3,
+    STEREO_SURROUND = 4,
+    FULL_SURROUND = 5,
+    FULL_SURROUND_PLUS_SUB = 6
+  };
+}
 
 #endif
