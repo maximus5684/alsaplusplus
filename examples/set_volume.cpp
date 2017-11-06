@@ -27,7 +27,7 @@ int main(int argc, char** argv)
       return 0;
     }
 
-    Mixer m("default");
+    Mixer m("default", "Master");
     float set_as;
 
     if (options.count("decrease"))
