@@ -13,7 +13,7 @@ namespace AlsaPlusPlus
   class Mixer
   {
     public:
-      Mixer(std::string hw_device);
+      Mixer(std::string hw_device, std::string volume_element_name);
       ~Mixer();
 
       float inc_vol_pct(float pct, snd_mixer_selem_channel_id_t channel = SND_MIXER_SCHN_MONO);
@@ -28,7 +28,7 @@ namespace AlsaPlusPlus
       std::string device_name;
       snd_mixer_t* mixer_handle;
       snd_mixer_selem_id_t* simple_mixer_handle;
-      std::string simple_elem_name = "Master";
+      std::string simple_elem_name;
       snd_mixer_elem_t* element_handle;
       long mute_vol;
 

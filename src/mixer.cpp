@@ -2,9 +2,10 @@
 
 using namespace AlsaPlusPlus;
 
-Mixer::Mixer(std::string hw_device) :
+Mixer::Mixer(std::string hw_device, std::string volume_element_name) :
   err(0),
-  device_name(hw_device)
+  device_name(hw_device),
+  simple_elem_name(volume_element_name)
 {
   if ((err = snd_mixer_open(&mixer_handle, 0)) < 0)
     handle_error_code(err, true, "Cannot open handle to mixer device.");
