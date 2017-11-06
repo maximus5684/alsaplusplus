@@ -26,7 +26,7 @@ extern "C"
 #include <alsa/conf.h>
 }
 
-#include <error.hpp>
+#include <alsaplusplus/error.hpp>
 
 namespace AlsaPlusPlus
 {

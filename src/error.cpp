@@ -1,4 +1,4 @@
-#include <error.hpp>
+#include <alsaplusplus/error.hpp>
 
 void AlsaPlusPlus::handle_error_code(int err_code, bool throws, std::string error_desc)
 {

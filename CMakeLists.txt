@@ -15,10 +15,10 @@ set(AlsaPlusPlus_VERSION ${AlsaPlusPlus_VERSION_MAJOR}.${AlsaPlusPlus_VERSION_MI
 set(HEADER_DIR ${CMAKE_SOURCE_DIR}/include)
 
 set(HEADERS
-  ${HEADER_DIR}/common.hpp;
-  ${HEADER_DIR}/error.hpp;
-  ${HEADER_DIR}/mixer.hpp;
-  ${HEADER_DIR}/pcm.hpp;
+  ${HEADER_DIR}/alsaplusplus/common.hpp;
+  ${HEADER_DIR}/alsaplusplus/error.hpp;
+  ${HEADER_DIR}/alsaplusplus/mixer.hpp;
+  ${HEADER_DIR}/alsaplusplus/pcm.hpp;
 )
 
 include_directories (
@@ -62,11 +62,11 @@ target_link_libraries(
 )
 
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include)
+install(FILES ${HEADERS} DESTINATION include/alsaplusplus)
 install(
-  TARGETS
-  set_volume
-  wav_player
+  FILES
+  examples/set_volume.cpp
+  examples/wav_player.cpp
   DESTINATION
   share/alsaplusplus/examples
 )

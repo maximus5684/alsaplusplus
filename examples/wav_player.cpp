@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <pcm.hpp>
+#include <alsaplusplus/pcm.hpp>
 
 using namespace AlsaPlusPlus;
 

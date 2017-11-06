@@ -1,7 +1,7 @@
 #ifndef ALSAPLUSPLUS_PCM_HPP
 #define ALSAPLUSPLUS_PCM_HPP
 
-#include <common.hpp>
+#include <alsaplusplus/common.hpp>
 #include <alsa/pcm.h>
 
 namespace AlsaPlusPlus
@@ -60,7 +60,7 @@ namespace AlsaPlusPlus
   };
 
   //Definitions of templated functions
-  #include <pcm.tpp>
+  #include <alsaplusplus/pcm.tpp>
 
 } 
 

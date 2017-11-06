@@ -1,7 +1,7 @@
 #ifndef ALSAPLUSPLUS_MIXER_HPP
 #define ALSAPLUSPLUS_MIXER_HPP
 
-#include <common.hpp>
+#include <alsaplusplus/common.hpp>
 #include <alsa/control.h>
 #include <alsa/pcm.h>
 #include <alsa/mixer.h>

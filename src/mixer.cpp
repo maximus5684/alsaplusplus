@@ -1,4 +1,4 @@
-#include <mixer.hpp>
+#include <alsaplusplus/mixer.hpp>
 
 using namespace AlsaPlusPlus;
 

@@ -1,7 +1,7 @@
 #include <cstdio>
 
 #include <cxxopts.hpp>
-#include <mixer.hpp>
+#include <alsaplusplus/mixer.hpp>
 
 using namespace AlsaPlusPlus;
 
