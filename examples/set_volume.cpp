@@ -9,17 +9,21 @@ int main(int argc, char** argv)
 {
   try
   {
-    cxxopts::Options options("Example Application for Setting Master Volume", "Sets master volume using the Mixer interface of AlsaPlusPlus.");
+    cxxopts::Options options("set_volume", "Sets master volume using the Mixer interface of AlsaPlusPlus.");
+    options.positional_help("[volume pct]");
+    
     options.add_options()
       ("d,decrease", "Decrease volume by given percent.", cxxopts::value<float>())
+      ("h,help", "Print help.")
       ("i,increase", "Increase volume by given percent.", cxxopts::value<float>())
       ("v,volume", "Set volume to given percent", cxxopts::value<float>());
+
     options.parse_positional("volume");
     options.parse(argc, argv);
 
     if (options.count("help"))
     {
-      std::cout << options.help({"", "Group"}) << std::endl;
+      std::cout << "\n" << options.help({"", "Group"}) << std::endl;
       return 0;
     }
 
@@ -49,7 +53,7 @@ int main(int argc, char** argv)
     }
     else
     {
-      std::cout << options.help({"", "Group"}) << std::endl;
+      std::cout << "\n" << options.help({"", "Group"}) << std::endl;
       return 0;
     }
   }
