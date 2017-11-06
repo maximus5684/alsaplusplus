@@ -39,10 +39,17 @@ target_link_libraries(
   asound
 )
 
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include)
-
 link_directories(${CMAKE_SOURCE_DIR}/lib)
+
+add_executable(
+  set_volume
+  examples/set_volume.cpp
+)
+
+target_link_libraries(
+  set_volume
+  ${PROJECT_NAME}
+)
 
 add_executable(
   wav_player
@@ -54,12 +61,22 @@ target_link_libraries(
   ${PROJECT_NAME}
 )
 
-add_executable(
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib)
+install(FILES ${HEADERS} DESTINATION include)
+install(
+  TARGETS
   set_volume
-  examples/set_volume.cpp
+  wav_player
+  DESTINATION
+  share/alsaplusplus/examples
 )
 
-target_link_libraries(
-  set_volume
-  ${PROJECT_NAME}
-)
+if(NOT TARGET uninstall)
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
+
+  add_custom_target(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
