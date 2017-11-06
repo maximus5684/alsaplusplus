@@ -36,78 +36,49 @@ Mixer::~Mixer()
   snd_mixer_close(mixer_handle);
 }
 
-int Mixer::dec_vol_pct(float pct, float* set_to, snd_mixer_selem_channel_id_t channel)
+float Mixer::dec_vol_pct(float pct, snd_mixer_selem_channel_id_t channel)
 {
   trim_pct(pct);
-
-  if ((err = get_vol_range()) < 0)
-    return err;
-
-  if ((err = get_cur_vol(channel)) < 0)
-    return err;
-
-  float new_vol = ((float)cur_vol / (max_vol - min_vol)) - pct;
-  trim_pct(new_vol);
-  new_vol = round(new_vol * 100.0) / 100.0;
-
-  if ((err = set_vol_pct(new_vol)) < 0)
-    return err;
-
-  if ((err = get_cur_vol(channel)) < 0)
-    return err;
-
-  *set_to = round(((float)cur_vol / (max_vol - min_vol)) * 100.0) / 100.0;
-
-  return 0;
+  float cur_vol = get_cur_vol_pct(channel);
+  return set_vol_pct(cur_vol - pct);
 }
 
-int Mixer::inc_vol_pct(float pct, float* set_to, snd_mixer_selem_channel_id_t channel)
+float Mixer::inc_vol_pct(float pct, snd_mixer_selem_channel_id_t channel)
 {
   trim_pct(pct);
-
-  if ((err = get_vol_range()) < 0)
-    return err;
-
-  if ((err = get_cur_vol(channel)) < 0)
-    return err;
-
-  float new_vol = ((float)cur_vol / (max_vol - min_vol)) + pct;
-  trim_pct(new_vol);
-  new_vol = round(new_vol * 100.0) / 100.0;
-
-  if ((err = set_vol_pct(new_vol)) < 0)
-    return err;
-
-  if ((err = get_cur_vol(channel)) < 0)
-    return err;
-
-  *set_to = round(((float)cur_vol / (max_vol - min_vol)) * 100.0) / 100.0;
-
-  return 0;
+  float cur_vol = get_cur_vol_pct(channel);
+  return set_vol_pct(cur_vol + pct);
 }
 
-int Mixer::set_vol_pct(float pct, float* set_to)
+float Mixer::set_vol_pct(float pct)
 {
-  if ((err = set_vol_pct(pct)) < 0)
-    return err;
+  long min, max;
 
-  if ((err = get_cur_vol(SND_MIXER_SCHN_MONO)) < 0)
-    return err;
+  trim_pct(pct);
+  get_vol_range(&min, &max);
 
-  *set_to = round(((float)cur_vol / (max_vol - min_vol)) * 100.0) / 100.0;
-
-  return 0;
+  set_vol_raw((long)((float)min + (pct * (max - min))));
+  return get_cur_vol_pct();
 }
 
-int Mixer::mute()
+float Mixer::get_cur_vol_pct(snd_mixer_selem_channel_id_t channel)
 {
-  if ((err = get_cur_vol(SND_MIXER_SCHN_MONO)) < 0)
-    return err;
+  long min, max, cur;
+  get_vol_range(&min, &max);
+  cur = get_cur_vol_raw(channel);
+  return round((float)cur / (max - min) * 100.0) / 100.0;
+}
 
-  if ((err = set_vol_pct(0)) < 0)
-    return err;
+float Mixer::mute()
+{
+  mute_vol = get_cur_vol_raw();
+  return set_vol_pct(0);
+}
 
-  return 0;
+float Mixer::unmute()
+{
+  set_vol_raw(mute_vol);
+  return get_cur_vol_pct();
 }
 
 void Mixer::trim_pct(float& pct)
@@ -116,42 +87,30 @@ void Mixer::trim_pct(float& pct)
   pct = (pct > 1) ? 1 : pct;
 }
 
-int Mixer::set_vol_pct(float pct)
+void Mixer::set_vol_raw(long vol)
 {
-  trim_pct(pct);
+  err = snd_mixer_selem_set_playback_volume_all(element_handle, vol);
 
-  if ((err = get_vol_range()) < 0)
-    return err;
-
-  if ((err = snd_mixer_selem_set_playback_volume_all(element_handle, pct * max_vol)) < 0)
-  {
+  if (err < 0)
     handle_error_code(err, false, "Cannot set volume to requested value.");
-    return err;
-  }
-
-  return 0;
 }
 
-int Mixer::get_vol_range()
+long Mixer::get_cur_vol_raw(snd_mixer_selem_channel_id_t channel)
 {
-  if ((err = snd_mixer_selem_get_playback_volume_range(element_handle, &min_vol, &max_vol)) < 0)
-  {
-    handle_error_code(err, false, "Cannot get min/max volume range.");
-    return err;
-  }
-  else
-  {
-    return 0;
-  }
-}
+  long cur_vol;
 
-int Mixer::get_cur_vol(snd_mixer_selem_channel_id_t channel)
-{
-  if ((err = snd_mixer_selem_get_playback_volume(element_handle, channel, &cur_vol)) < 0)
-  {
+  err = snd_mixer_selem_get_playback_volume(element_handle, channel, &cur_vol);
+
+  if (err < 0)
     handle_error_code(err, false, "Could not get volume for provided channel.");
-    return err;
-  }
 
-  return 0;
+  return cur_vol;
+}
+
+void Mixer::get_vol_range(long* min_vol, long* max_vol)
+{
+  err = snd_mixer_selem_get_playback_volume_range(element_handle, min_vol, max_vol);
+
+  if (err < 0)
+    handle_error_code(err, false, "Cannot get min/max volume range.");
 }

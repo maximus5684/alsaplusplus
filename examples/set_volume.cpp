@@ -32,24 +32,18 @@ int main(int argc, char** argv)
 
     if (options.count("decrease"))
     {
-      if (m.dec_vol_pct(options["decrease"].as<float>(), &set_as) < 0)
-        std::cerr << "Unable to set volume." << std::endl;
-      else
-        std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
+      set_as = m.dec_vol_pct(options["decrease"].as<float>());
+      std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
     }
     else if (options.count("increase"))
     {
-      if (m.inc_vol_pct(options["increase"].as<float>(), &set_as) < 0)
-        std::cerr << "Unable to set volume." << std::endl;
-      else
-        std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
+      set_as = m.inc_vol_pct(options["increase"].as<float>());
+      std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
     }
     else if (options.count("volume"))
     {
-      if (m.set_vol_pct(options["volume"].as<float>(), &set_as) < 0)
-        std::cerr << "Unable to set volume." << std::endl;
-      else
-        std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
+      set_as = m.set_vol_pct(options["volume"].as<float>());
+      std::cout << "Volume was set to " << set_as * 100.0 << "%." << std::endl;
     }
     else
     {
