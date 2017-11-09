@@ -37,6 +37,76 @@ Mixer::~Mixer()
   snd_mixer_close(mixer_handle);
 }
 
+bool Mixer::device_exists(std::string hw_device)
+{
+  int err;
+  snd_mixer_t* temp_handle;
+
+  if ((err = snd_mixer_open(&temp_handle, 0)) < 0)
+  {
+    handle_error_code(err, false, "Cannot open handle to a mixer device.");
+    return false;
+  }
+
+  if ((err = snd_mixer_attach(temp_handle, hw_device.c_str())) < 0)
+  {
+    snd_mixer_close(temp_handle);
+    return false;
+  }
+
+  snd_mixer_close(temp_handle);
+  return true;
+}
+
+bool Mixer::element_exists(std::string hw_device, std::string element_name)
+{
+  int err;
+  snd_mixer_t* temp_handle;
+  snd_mixer_selem_id_t* simple_temp_handle;
+
+  if ((err = snd_mixer_open(&temp_handle, 0)) < 0)
+  {
+    handle_error_code(err, false, "Cannot open handle to a mixer device.");
+    return false;
+  }
+
+  if ((err = snd_mixer_attach(temp_handle, hw_device.c_str())) < 0)
+  {
+    handle_error_code(err, true, "Cannot attach mixer to device.");
+    snd_mixer_close(temp_handle);
+    return false;
+  }
+
+  if ((err = snd_mixer_selem_register(temp_handle, NULL, NULL)) < 0)
+  {
+    handle_error_code(err, true, "Cannot register simple mixer object.");
+    snd_mixer_close(temp_handle);
+    return false;
+  }
+
+  if ((err = snd_mixer_load(temp_handle)) < 0)
+  {
+    handle_error_code(err, true, "Cannot load sound mixer.");
+    snd_mixer_close(temp_handle);
+    return false;
+  }
+
+  snd_mixer_selem_id_alloca(&simple_temp_handle);
+  snd_mixer_selem_id_set_index(simple_temp_handle, 0);
+  snd_mixer_selem_id_set_name(simple_temp_handle, element_name.c_str());
+  snd_mixer_elem_t* elem_handle = snd_mixer_find_selem(temp_handle, simple_temp_handle);
+
+  if (elem_handle == NULL)
+  {
+    snd_mixer_close(temp_handle);
+    return false;
+  }
+  
+  snd_mixer_close(temp_handle);
+  return true;
+}
+
+
 float Mixer::dec_vol_pct(float pct, snd_mixer_selem_channel_id_t channel)
 {
   trim_pct(pct);

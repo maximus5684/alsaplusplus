@@ -16,6 +16,8 @@ namespace AlsaPlusPlus
       Mixer(std::string hw_device, std::string volume_element_name);
       ~Mixer();
 
+      static bool device_exists(std::string hw_device);
+      static bool element_exists(std::string hw_device, std::string element_name);
       float inc_vol_pct(float pct, snd_mixer_selem_channel_id_t channel = SND_MIXER_SCHN_MONO);
       float dec_vol_pct(float pct, snd_mixer_selem_channel_id_t channel = SND_MIXER_SCHN_MONO);
       float set_vol_pct(float pct);
