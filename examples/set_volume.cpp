@@ -13,10 +13,10 @@ int main(int argc, char** argv)
     options.positional_help("[volume pct]");
     
     options.add_options()
-      ("d,decrease", "Decrease volume by given percent.", cxxopts::value<float>())
+      ("d,decrease", "Decrease volume by given percent [0.0 - 1.0].", cxxopts::value<float>())
       ("h,help", "Print help.")
-      ("i,increase", "Increase volume by given percent.", cxxopts::value<float>())
-      ("v,volume", "Set volume to given percent", cxxopts::value<float>());
+      ("i,increase", "Increase volume by given percent [0.0 - 1.0].", cxxopts::value<float>())
+      ("v,volume", "Set volume to given percent [0.0 - 1.0].", cxxopts::value<float>());
 
     options.parse_positional("volume");
     options.parse(argc, argv);
