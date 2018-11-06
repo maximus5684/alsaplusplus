@@ -12,7 +12,7 @@ set(AlsaPlusPlus_VERSION_MINOR 1)
 set(AlsaPlusPlus_VERSION_PATCH 0)
 set(AlsaPlusPlus_VERSION ${AlsaPlusPlus_VERSION_MAJOR}.${AlsaPlusPlus_VERSION_MINOR}.${AlsaPlusPlus_VERSION_PATCH})
 
-set(HEADER_DIR ${CMAKE_SOURCE_DIR}/include)
+set(HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set(HEADERS
   ${HEADER_DIR}/alsaplusplus/common.hpp;
