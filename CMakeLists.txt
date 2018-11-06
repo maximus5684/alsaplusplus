@@ -3,10 +3,6 @@ project(AlsaPlusPlus)
 
 add_definitions(-std=c++11)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-
 set(AlsaPlusPlus_VERSION_MAJOR 0)
 set(AlsaPlusPlus_VERSION_MINOR 1)
 set(AlsaPlusPlus_VERSION_PATCH 0)
