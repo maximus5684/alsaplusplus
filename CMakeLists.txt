@@ -1,19 +1,17 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
 project(AlsaPlusPlus)
-
-add_definitions(-std=c++11)
 
 set(AlsaPlusPlus_VERSION_MAJOR 0)
 set(AlsaPlusPlus_VERSION_MINOR 1)
-set(AlsaPlusPlus_VERSION_PATCH 0)
+set(AlsaPlusPlus_VERSION_PATCH 1)
 set(AlsaPlusPlus_VERSION ${AlsaPlusPlus_VERSION_MAJOR}.${AlsaPlusPlus_VERSION_MINOR}.${AlsaPlusPlus_VERSION_PATCH})
 
 option(WITH_SAMPLES "Build and install samples of library usage" OFF)
 option(INSTALL_HEADERS "Install library headers" ON)
 
+set(CMAKE_CXX_STANDARD 14)
 
 set(HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
 set(HEADERS
     ${HEADER_DIR}/alsaplusplus/common.hpp;
     ${HEADER_DIR}/alsaplusplus/error.hpp;
