@@ -2,6 +2,9 @@
 
 using namespace AlsaPlusPlus;
 
+constexpr long MINIMAL_VOLUME = 0;
+constexpr long MAXIMUM_VOLUME = 65535;
+
 Mixer::Mixer(std::string hw_device, std::string volume_element_name) :
   err(0),
   device_name(hw_device),
@@ -30,6 +33,8 @@ Mixer::Mixer(std::string hw_device, std::string volume_element_name) :
     oss << "Could not find simple mixer element named " << simple_elem_name << ".";
     handle_error_code(static_cast<int>(std::errc::argument_out_of_domain), true, oss.str());
   }
+  if ((err = snd_mixer_selem_set_playback_volume_range (element_handle, MINIMAL_VOLUME, MAXIMUM_VOLUME)) < 0)
+    handle_error_code(err, true, "Cannot set element volume range.");
 }
 
 Mixer::~Mixer()
@@ -127,7 +132,6 @@ float Mixer::set_vol_pct(float pct)
 
   trim_pct(pct);
   get_vol_range(&min, &max);
-
   set_vol_raw((long)((float)min + (pct * (max - min))));
   return get_cur_vol_pct();
 }
