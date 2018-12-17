@@ -42,9 +42,9 @@ jobs:
             cd build
             make install
 
-  debian_jessie:
+  debian_stretch:
     docker:
-      - image: debian:jessie
+      - image: debian:stretch
     steps:
       - checkout
       - run:
@@ -69,4 +69,4 @@ workflows:
     jobs:
       - ubuntu_1604
       - ubuntu_1804
-      - debian_jessie
+      - debian_stretch
