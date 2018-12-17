@@ -65,7 +65,7 @@ jobs:
 
 workflows:
   version: 2
-  multi_oss_build:
+  multi_os_build:
     jobs:
       - ubuntu_1604
       - ubuntu_1804
