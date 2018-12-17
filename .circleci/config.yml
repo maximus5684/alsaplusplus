@@ -1,0 +1,72 @@
+version: 2
+jobs:
+  ubuntu_1604:
+    docker:
+      - image: ubuntu:xenial
+    steps:
+      - checkout
+      - run:
+          name: Set Up Container
+          command: |
+            apt update && apt install -y build-essential cmake libasound2-dev
+      - run:
+          name: Build
+          command: |
+            mkdir build && cd build
+            cmake ..
+            make
+      - run:
+          name: Install
+          command: |
+            cd build
+            make install
+
+  ubuntu_1804:
+    docker:
+      - image: ubuntu:bionic
+    steps:
+      - checkout
+      - run:
+          name: Set Up Container
+          command: |
+            apt update && apt install -y build-essential cmake libasound2-dev
+      - run:
+          name: Build
+          command: |
+            mkdir build && cd build
+            cmake ..
+            make
+      - run:
+          name: Install
+          command: |
+            cd build
+            make install
+
+  debian_stretch:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Set Up Container
+          command: |
+            apt update && apt install -y build-essential cmake libasound2-dev
+      - run:
+          name: Build
+          command: |
+            mkdir build && cd build
+            cmake ..
+            make
+      - run:
+          name: Install
+          command: |
+            cd build
+            make install
+
+workflows:
+  version: 2
+  multi_os_build:
+    jobs:
+      - ubuntu_1604
+      - ubuntu_1804
+      - debian_stretch
