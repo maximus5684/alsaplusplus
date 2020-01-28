@@ -17,6 +17,7 @@ set(HEADERS
   ${HEADER_DIR}/alsaplusplus/error.hpp;
   ${HEADER_DIR}/alsaplusplus/mixer.hpp;
   ${HEADER_DIR}/alsaplusplus/pcm.hpp;
+  ${HEADER_DIR}/alsaplusplus/pcm.tpp;
 )
 
 include_directories(${HEADER_DIR})
