@@ -13,7 +13,7 @@ jobs:
           name: Build
           command: |
             mkdir build && cd build
-            cmake ..
+            cmake .. -DWITH_EXAMPLES=ON
             make
       - run:
           name: Install
@@ -34,7 +34,7 @@ jobs:
           name: Build
           command: |
             mkdir build && cd build
-            cmake ..
+            cmake .. -DWITH_EXAMPLES=ON
             make
       - run:
           name: Install
@@ -55,7 +55,7 @@ jobs:
           name: Build
           command: |
             mkdir build && cd build
-            cmake ..
+            cmake .. -DWITH_EXAMPLES=ON
             make
       - run:
           name: Install
